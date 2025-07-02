@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    ViewBag.Brand = "Веб-приложение";
+    ViewBag.HasBreadcrumb = IsSectionDefined("Breadcrumb");
+}
+
+<!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width" />
@@ -7,9 +12,14 @@
         <title>@(ViewBag.Title ?? "Без заголовка")</title>
     </head>
     <body>
-        <main>
+        <header>
+            <partial name="_NavigationPartial" />
+            <partial name="_BreadcrumbPartial" />
+        </header>
+        <main class="container-md">
             @RenderBody()
         </main>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        @RenderSection("Scripts", false)
     </body>
 </html>

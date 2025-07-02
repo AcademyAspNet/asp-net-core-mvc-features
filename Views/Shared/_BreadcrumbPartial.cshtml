@@ -1,0 +1,33 @@
+﻿<div class="container-md mb-3">
+    @if (ViewBag.HasBreadcrumb)
+    {
+        @RenderSection("Breadcrumb", false)
+    }
+    else if (ViewBag.Breadcrumb is not null)
+    {
+        string? currentControllerName = (string?)ViewContext.RouteData.Values["controller"];
+        string? currentActionName = (string?)ViewContext.RouteData.Values["action"];
+
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                @foreach (BreadcrumbItem item in ViewBag.Breadcrumb)
+                {
+                    bool isActive = (currentControllerName == item.ControllerName) && (currentActionName == item.ActionName);
+
+                    <li class="breadcrumb-item @(isActive ? "active" : "")">
+                        @if (isActive)
+                        {
+                            <text>@item.Text</text>
+                        }
+                        else
+                        {
+                            <a asp-controller="@item.ControllerName" asp-action="@item.ActionName">
+                                @item.Text
+                            </a>
+                        }
+                    </li>
+                }
+            </ol>
+        </nav>
+    }
+</div>
