@@ -16,8 +16,8 @@ namespace WebApplication7
 
             app.UseStaticFiles();
 
-            app.MapControllerRoute("default", "{controller=Home}/{action=Index}");
-            app.MapControllerRoute("areas", "{area:exists}/{controller=Home}/{action=Index}");
+            app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+            app.MapControllerRoute("areas", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
         }

@@ -19,26 +19,7 @@
                 if (itemIndex >= productCount)
                     break;
 
-                Product product = Model[itemIndex];
-
-                <div class="col-12 col-sm-6 col-md-4 mb-3">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <p class="card-title">@product.Name</p>
-                            <p class="card-text">
-                                @if (product.Description is not null)
-                                {
-                                    <text>@product.Description</text>
-                                }
-                                else
-                                {
-                                    <i class="text-secondary">Описание отсутствует...</i>
-                                }
-                            </p>
-                            <p>@product.Price</p>
-                        </div>
-                    </div>
-                </div>
+                <partial name="Components/ProductCardPartial" model="@Model[itemIndex]" />
             }
         </div>
     }
