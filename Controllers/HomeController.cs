@@ -10,11 +10,6 @@ namespace WebApplication7.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            ViewBag.Breadcrumb = new List<BreadcrumbItem>()
-            {
-                new BreadcrumbItem("Главная страница", "Home", "Index")
-            };
-
             return View();
         }
     }

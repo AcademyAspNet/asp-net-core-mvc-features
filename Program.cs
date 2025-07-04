@@ -1,3 +1,6 @@
+using WebApplication7.Services;
+using WebApplication7.Services.Implementations;
+
 namespace WebApplication7
 {
     public class Program
@@ -7,6 +10,7 @@ namespace WebApplication7
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IProductService, ProductService>();
 
             var app = builder.Build();
 
