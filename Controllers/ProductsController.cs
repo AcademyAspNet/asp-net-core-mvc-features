@@ -18,7 +18,7 @@ namespace WebApplication7.Controllers
 
         public IActionResult Index()
         {
-            List<Product> products = _productService.GetProducts();
+            IList<Product> products = _productService.GetProducts();
 
             ViewBag.Breadcrumb = new List<BreadcrumbItem>()
             {
