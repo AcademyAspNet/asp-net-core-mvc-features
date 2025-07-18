@@ -1,13 +1,14 @@
-﻿using WebApplication7.Data.Repositories;
-using WebApplication7.Models.Entities;
+﻿using WebApplication7.Data.Models;
+using WebApplication7.Data.Repositories;
+using WebApplication7.Data.Repositories.Implementations;
 
 namespace WebApplication7.Services.Implementations
 {
     public class ProductService : IProductService
     {
-        private readonly ProductRepository _productRepository;
+        private readonly IRepository<Product> _productRepository;
 
-        public ProductService(ProductRepository productRepository)
+        public ProductService(IRepository<Product> productRepository)
         {
             _productRepository = productRepository;
         }

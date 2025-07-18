@@ -1,4 +1,4 @@
-﻿using WebApplication7.Models.Entities;
+﻿using WebApplication7.Data.Models;
 
 namespace WebApplication7.Services
 {

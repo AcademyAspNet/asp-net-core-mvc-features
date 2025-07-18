@@ -1,5 +1,5 @@
-﻿using WebApplication7.Models.DTO;
-using WebApplication7.Models.Entities;
+﻿using WebApplication7.Data.Models;
+using WebApplication7.Models.DTO;
 
 namespace WebApplication7.Models.Views
 {
