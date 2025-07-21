@@ -10,10 +10,12 @@ namespace WebApplication7.Controllers
     public class ProductsController : Controller
     {
         private readonly IProductService _productService;
+        private readonly IReviewService _reviewService;
 
-        public ProductsController(IProductService productService)
+        public ProductsController(IProductService productService, IReviewService reviewService)
         {
             _productService = productService;
+            _reviewService = reviewService;
         }
 
         public IActionResult Index()
@@ -51,6 +53,32 @@ namespace WebApplication7.Controllers
             };
 
             return View(model);
+        }
+
+        public IActionResult CreateReview([FromRoute] int? id, [FromForm] ReviewDTO review)
+        {
+            if (id is null)
+                return RedirectToAction("Index");
+
+            Product? product = _productService.GetProductById((int)id);
+
+            if (product is null)
+                return RedirectToAction("Index");
+
+            if (!ModelState.IsValid)
+            {
+                ProductViewModel model = new ProductViewModel()
+                {
+                    Product = product,
+                    Review = review
+                };
+
+                return View("~/Views/Products/GetById.cshtml", model);
+            }
+
+            _reviewService.CreateReview(product.Id, review);
+
+            return RedirectToAction("GetById", new { id = product.Id });
         }
     }
 }

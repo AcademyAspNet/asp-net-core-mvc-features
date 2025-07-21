@@ -1,5 +1,8 @@
 ﻿@using WebApplication7.Data.Models
+@using WebApplication7.Services
+
 @model ProductViewModel
+@inject IReviewService reviewService
 
 @{
     Product product = Model.Product;
@@ -31,12 +34,39 @@
     @product.Price
 </p>
 
+@{
+    IList<Review> reviews = reviewService.GetReviewsByProductId(product.Id);
+}
+
+@if (reviews.Count > 0)
+{
+    <hr />
+    <p class="fs-4">Список отзывов</p>
+    <hr />
+
+    @foreach (Review review in reviews)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                <span>
+                    <b>Автор отзыва</b>: @review.Author
+                </span>
+            </div>
+            <div class="card-body">
+                <span>
+                    @review.Text
+                </span>
+            </div>
+        </div>
+    }
+}
+
 @if (Model.Review is not null)
 {
     <p class="fs-4">Оставить отзыв о товаре</p>
     <hr />
 
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("CreateReview", "Products", new { id = product.Id }))
     {
         ReviewDTO review = Model.Review;
 
@@ -45,12 +75,14 @@
             @Html.EditorFor(model => review.Author, new {
                 htmlAttributes = new { @class = "form-control"}
             })
+            @Html.ValidationMessageFor(model => review.Author, "", new { @class = "text-danger" })
         </div>
         <div class="mb-3">
             @Html.LabelFor(model => review.Text, htmlAttributes: new { @class = "form-label" })
             @Html.EditorFor(model => review.Text, new {
                 htmlAttributes = new { @class = "form-control" }
             })
+            @Html.ValidationMessageFor(model => review.Text, "", new { @class = "text-danger" })
         </div>
         <div class="mb-3">
             <button class="btn btn-primary" type="submit">

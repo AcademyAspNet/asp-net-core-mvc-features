@@ -20,6 +20,9 @@ namespace WebApplication7
             builder.Services.AddScoped<IRepository<Product>, ProductRepository>();
             builder.Services.AddScoped<IProductService, ProductService>();
 
+            builder.Services.AddScoped<ReviewRepository>();
+            builder.Services.AddScoped<IReviewService, ReviewService>();
+
             var app = builder.Build();
 
             app.UseStaticFiles();

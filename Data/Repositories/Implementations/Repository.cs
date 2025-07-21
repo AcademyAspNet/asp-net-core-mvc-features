@@ -6,7 +6,7 @@ namespace WebApplication7.Data.Repositories.Implementations
 {
     public abstract class Repository<T> : IRepository<T> where T : Entity
     {
-        private readonly IDatabaseContext _databaseContext;
+        protected readonly IDatabaseContext _databaseContext;
 
         protected Repository(IDatabaseContext databaseContext)
         {
