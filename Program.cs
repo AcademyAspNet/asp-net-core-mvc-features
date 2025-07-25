@@ -21,14 +21,18 @@ namespace WebApplication7
                 options.UseSqlServer(connectionString);
             });
 
+            builder.Services.AddSession();
+
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IReviewService, ReviewService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
 
             var app = builder.Build();
 
             app.UseStaticFiles();
+            app.UseSession();
 
             app.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             app.MapControllerRoute("areas", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
