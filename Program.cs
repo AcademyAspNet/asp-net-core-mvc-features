@@ -1,7 +1,5 @@
+using Microsoft.EntityFrameworkCore;
 using WebApplication7.Data;
-using WebApplication7.Data.Models;
-using WebApplication7.Data.Repositories;
-using WebApplication7.Data.Repositories.Implementations;
 using WebApplication7.Services;
 using WebApplication7.Services.Implementations;
 
@@ -13,14 +11,19 @@ namespace WebApplication7
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                string? connectionString = builder.Configuration.GetConnectionString("Default");
+
+                if (string.IsNullOrWhiteSpace(connectionString))
+                    throw new MissingFieldException("Failed to get Default connection string");
+
+                options.UseSqlServer(connectionString);
+            });
+
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddScoped<IDatabaseContext, DatabaseContext>();
-
-            builder.Services.AddScoped<IRepository<Product>, ProductRepository>();
             builder.Services.AddScoped<IProductService, ProductService>();
-
-            builder.Services.AddScoped<ReviewRepository>();
             builder.Services.AddScoped<IReviewService, ReviewService>();
 
             var app = builder.Build();

@@ -1,26 +1,25 @@
-﻿using WebApplication7.Data.Models;
-using WebApplication7.Data.Repositories;
-using WebApplication7.Data.Repositories.Implementations;
+﻿using WebApplication7.Data;
+using WebApplication7.Data.Models;
 
 namespace WebApplication7.Services.Implementations
 {
     public class ProductService : IProductService
     {
-        private readonly IRepository<Product> _productRepository;
+        private readonly ApplicationDbContext _database;
 
-        public ProductService(IRepository<Product> productRepository)
+        public ProductService(ApplicationDbContext database)
         {
-            _productRepository = productRepository;
+            _database = database;
         }
 
         public IList<Product> GetProducts()
         {
-            return _productRepository.GetAll();
+            return _database.Products.ToList();
         }
 
         public Product? GetProductById(int id)
         {
-            return _productRepository.GetById(id);
+            return _database.Products.Find(id);
         }
     }
 }
