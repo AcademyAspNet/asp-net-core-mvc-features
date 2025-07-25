@@ -11,5 +11,12 @@ namespace WebApplication7.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Product>()
+                        .Property(p => p.Price)
+                        .HasPrecision(9, 2);
+        }
     }
 }
